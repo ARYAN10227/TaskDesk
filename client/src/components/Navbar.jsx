@@ -2,7 +2,8 @@ import { SearchIcon, PanelLeft } from 'lucide-react'
 import { useDispatch, useSelector } from 'react-redux'
 import { toggleTheme } from '../features/themeSlice'
 import { MoonIcon, SunIcon } from 'lucide-react'
-import { Show, SignInButton, SignUpButton, UserButton } from '@clerk/react'
+import { assets } from '../assets/assets'
+import { UserButton } from '@clerk/clerk-react'
 
 const Navbar = ({ setIsSidebarOpen }) => {
 
@@ -42,23 +43,8 @@ const Navbar = ({ setIsSidebarOpen }) => {
                         }
                     </button>
 
-                    <Show when="signed-out">
-                        <div className="flex items-center gap-2">
-                            <SignInButton>
-                                <button className="px-3 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-md transition-colors">
-                                    Sign in
-                                </button>
-                            </SignInButton>
-                            <SignUpButton>
-                                <button className="px-3 py-1.5 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md shadow-sm transition-colors">
-                                    Sign up
-                                </button>
-                            </SignUpButton>
-                        </div>
-                    </Show>
-                    <Show when="signed-in">
-                        <UserButton appearance={{ elements: { avatarBox: 'size-8' } }} />
-                    </Show>
+                    {/* User Button */}
+                   <UserButton />
                 </div>
             </div>
         </div>
