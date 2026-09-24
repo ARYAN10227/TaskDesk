@@ -5,7 +5,7 @@ import { addTask } from "../features/workspaceSlice";
 import { useAuth } from "@clerk/clerk-react";
 import { format } from "date-fns";
 import toast from "react-hot-toast";
-import api from "../configs/api";
+import api from "../config/api";
 
 export default function CreateTaskDialog({ showCreateTask, setShowCreateTask, projectId }) {
     const { getToken } = useAuth();

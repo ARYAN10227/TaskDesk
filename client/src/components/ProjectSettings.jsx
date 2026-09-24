@@ -4,7 +4,7 @@ import { Plus, Save } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useAuth } from "@clerk/clerk-react";
 import { fetchWorkspaces } from "../features/workspaceSlice";
-import api from "../configs/api";
+import api from "../config/api";
 import toast from "react-hot-toast";
 import AddProjectMember from "./AddProjectMember";
 

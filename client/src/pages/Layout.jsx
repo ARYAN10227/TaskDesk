@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import Navbar from '../components/Navbar'
 import Sidebar from '../components/Sidebar'
 import { Outlet } from 'react-router-dom'
-import { CreateOrganization, SignIn, useAuth, useUser } from '@clerk/clerk-react'
+import { CreateOrganization, SignIn, useAuth, useUser, useOrganization } from '@clerk/clerk-react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchWorkspaces } from '../features/workspaceSlice'
 import { loadTheme } from '../features/themeSlice'
@@ -11,6 +11,7 @@ import { Loader2Icon } from 'lucide-react'
 const Layout = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)
     const { user, isLoaded } = useUser()
+    const { organization } = useOrganization()
     const { workspaces, loading } = useSelector((state) => state.workspace)
     const { getToken } = useAuth()
     const dispatch = useDispatch()
@@ -20,12 +21,12 @@ const Layout = () => {
         dispatch(loadTheme())
     }, [])
 
-    // Initial load of workspaces
+    // Load workspaces whenever the user or active Clerk organization changes
     useEffect(() => {
-        if (isLoaded && user && workspaces.length === 0) {
+        if (isLoaded && user && organization) {
             dispatch(fetchWorkspaces({ getToken }))
         }
-    }, [user, isLoaded])
+    }, [isLoaded, user, organization?.id])
 
     if (!user) {
         return (
@@ -35,19 +36,19 @@ const Layout = () => {
         )
     }
 
-    if (loading) return (
-        <div className='flex items-center justify-center h-screen bg-white dark:bg-zinc-950'>
-            <Loader2Icon className="size-7 text-blue-500 animate-spin" />
-        </div>
-    )
-
-    if (user && workspaces.length === 0) {
+    if (!organization) {
         return (
             <div className="min-h-screen flex justify-center items-center">
                 <CreateOrganization />
             </div>
         )
     }
+
+    if (loading) return (
+        <div className='flex items-center justify-center h-screen bg-white dark:bg-zinc-950'>
+            <Loader2Icon className="size-7 text-blue-500 animate-spin" />
+        </div>
+    )
 
     return (
         <div className="flex bg-white dark:bg-zinc-950 text-gray-900 dark:text-slate-100">

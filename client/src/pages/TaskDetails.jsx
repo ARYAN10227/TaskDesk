@@ -3,7 +3,7 @@ import { useAuth, useUser } from "@clerk/clerk-react";
 import { useSearchParams } from "react-router-dom";
 import { format } from "date-fns";
 import toast from "react-hot-toast";
-import api from "../configs/api";
+import api from "../config/api";
 import { CalendarIcon, FileIcon, MessageCircle, PenIcon, UserCircle2 } from "lucide-react";
 import { useSelector } from "react-redux";
 

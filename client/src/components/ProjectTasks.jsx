@@ -1,4 +1,4 @@
-import api from "../configs/api";
+import api from "../config/api";
 import toast from "react-hot-toast";
 import { useState, useMemo } from "react";
 import { format } from "date-fns";
